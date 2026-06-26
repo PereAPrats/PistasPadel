@@ -105,8 +105,10 @@ PistasPadel/
 - Noms en català o anglès? **Anglès** per al codi (variables, funcions, rutes), **català** per a textos d'UI i comentaris de bloc a criteri.
 
 ### Git
-- Commits freqüents amb missatges descriptius en **anglès** i format convencional: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`.
-- Exemple: `feat: add club management CRUD endpoints`
+- **Mai treballar directament sobre `dev` o `master`.** Cada tasca nova va en una rama separada (`feat_nom-tasca`).
+- Commits freqüents amb missatges descriptius en **anglès** i format `TYPE: Description` (ex. `feat: add club management CRUD endpoints`, `fix: prevent double booking on concurrent requests`).
+- Tipus permesos: `feat`, `fix`, `docs`, `chore`, `refactor`.
+- `dev` és la rama d'integració. Mai es fa commit directe a `dev`; tot es fusiona via merge des d'una rama de tasca.
 - No esborrar l'historial de commits ni fer amend després de push.
 - El tag `entrega` es crearà al final del sprint.
 
