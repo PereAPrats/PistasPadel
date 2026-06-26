@@ -1,2 +1,2 @@
 # PistasPadel
-Web e gestión de pistas de padel
+Web de gestión de pistas de padel
