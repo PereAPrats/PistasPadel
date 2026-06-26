@@ -1,0 +1,48 @@
+services:
+  db:
+    container_name: LAB-DB
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: padel
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  api:
+    container_name: LAB-API
+    build:
+      context: ./service
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: padel
+      DB_USERNAME: padel_user
+      DB_PASSWORD: padel_pass
+    volumes:
+      - ./service/src:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+
+  front:
+    container_name: LAB-FRONT
+    build:
+      context: ./ui
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./ui/src:/app
+    depends_on:
+      - api
+
+volumes:
+  db_data:

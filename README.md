@@ -1,59 +1,77 @@
 # PistasPadel
-Web de gestión de pistas de padel
 
-## Cómo colaborar
+Aplicació web de gestió de reserves de pistes de pádel i matchmaking entre jugadors.
 
-Para mantener el proyecto organizado, seguro y con un historial limpio, seguimos un flujo de trabajo basado en ramas. **Está totalmente prohibido hacer push directamente a la rama `master`**. Todo cambio debe pasar por un proceso de integración en desarrollo y un Pull Request final.
+## Continguts del repositori
+
+```
+PistasPadel/
+├── doc/                    # Documentació i memòria del projecte
+│   ├── REPORT.md           # Memòria tècnica
+│   ├── INSTRUCTIONS.md     # Instruccions de la convocatòria
+│   ├── MODEL_REPORT.md     # Plantilla de la memòria
+│   ├── Proyecto Padel.md   # Proposta original
+│   └── Proyecto Padel.pdf  # Proposta original (PDF)
+├── ui/                     # Frontend (React + TypeScript + Vite)
+│   ├── Dockerfile
+│   └── src/
+├── service/                # Backend (Laravel 11 + PHP)
+│   ├── Dockerfile
+│   └── src/
+├── docker-compose.yml      # Orquestració dels contenidors
+├── AGENTS.md               # Configuració per a assistents d'IA
+└── README.md
+```
+
+## Stack tecnològic
+
+- **Frontend:** React 18 + TypeScript + Vite
+- **Backend:** Laravel 11 + PHP 8.x
+- **Base de dades:** MySQL 8
+- **Autenticació:** Laravel Sanctum
+- **Desplegament:** Docker Compose
+
+## Desenvolupament amb Docker
+
+```bash
+docker compose up -d
+```
+
+- Frontend: http://localhost:5173
+- API: http://localhost:8000
+- Base de dades: localhost:3306
+
+## Comandes útils
+
+```bash
+docker compose down                    # Aturar l'entorn
+docker compose logs -f api             # Veure logs del backend
+docker compose exec api php artisan migrate   # Executar migracions
+docker compose exec api composer require paquet
+```
 
 ---
 
-### Estructura de Ramas
+## Com col·laborar
 
-* **`master` (Producción):** Contiene el código completamente estable que está en producción. Nadie puede modificar esta rama directamente.
-* **`dev` (Desarrollo):** Es la rama de integración. Aquí se juntan todas las nuevas funcionalidades antes de pasar a producción. Es la única rama autorizada para fusionarse con `master`.
-* **`feat_nombre-feature` (Locales):** Ramas cortas que creará cada desarrollador en su máquina para trabajar en una tarea específica. No se suben a GitHub.
+Per mantenir el projecte organitzat, segur i amb un historial net, seguim un flux de treball basat en rames. **Està totalment prohibit fer push directament a la rama `master`**.
 
----
+### Estructura de rames
 
-### Flujo de Trabajo Paso a Paso
+- **`master`** — Codi estable en producció. No es modifica directament.
+- **`dev`** — Rama d'integració. L'única que es pot fusionar amb `master`.
+- **`feat_nom-funcionalitat`** — Rames locals per a tasques específiques.
 
-#### 1. Sincroniza tu entorno local
-Antes de empezar cualquier tarea, asegúrate de tener los últimos cambios de la rama de desarrollo:
-```bash
-git checkout dev
-git pull origin dev
-```
+### Flux de treball
 
-#### 2. Crea tu rama de funcionalidad (Feature)
-Crea una rama local partiendo siempre de **`dev`**. Usa nombres descriptivos con el prefijo **`feat_`**:
+1. Sincronitza `dev`: `git checkout dev && git pull origin dev`
+2. Crea rama: `git checkout -b feat_mi-funcionalitat`
+3. Desenvolupa i fes commit
+4. Torna a `dev`, actualitza i fusiona:
+   ```bash
+   git checkout dev && git pull origin dev
+   git merge feat_mi-funcionalitat
+   git push origin dev
+   ```
+5. Obre un Pull Request des de `dev` a `master` a GitHub
 
-```bash
-git checkout -b feat_mi-nueva-funcionalidad
-```
-
-#### 3. Integra tus cambios en la rama de desarrollo
-Una vez que hayas terminado y probado tu funcionalidad en local, debes llevar esos cambios a la rama **`dev`** remota.
-
-⚠️ Nota: Antes de hacer el merge, vuelve a traer lo último de **`dev`** por si algún compañero ha subido cambios mientras tú trabajabas.
-
-```bash
-# Volvemos a dev y actualizamos con lo que haya en GitHub
-git checkout dev
-git pull origin dev
-
-# Fusionamos nuestra feature en dev
-git merge feat_mi-nueva-funcionalidad
-
-# Subimos los cambios a GitHub
-git push origin dev
-```
-
-Una vez hecho esto, puedes borrar tu rama local **`feat_mi-nueva-funcionalidad`** para mantener tu entorno limpio.
-
-#### 4. Paso a Producción (**`master`**)
-Cuando la rama dev tenga cambios estables que estén listos para ser desplegados en producción:
-
-* Ve a la interfaz web de **GitHub**.
-* Abre un Pull Request (PR) desde la rama **`dev`** hacia la rama **`master`**.
-* Revisa que no haya conflictos. Aunque el sistema te permite aprobar el PR a ti mismo, asegúrate de que el código ha sido verificado.
-* Haz clic en **Merge Pull Request**.

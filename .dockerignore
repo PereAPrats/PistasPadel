@@ -1,0 +1,29 @@
+# === Git ===
+.git/
+.gitignore
+.dockerignore
+.gitkeep
+
+# === IDE / OS ===
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# === Dependències (es resolen al build) ===
+node_modules/
+vendor/
+
+# === Config de desenvolupament ===
+.env
+.env.local
+docker-compose*.yml
+docker-compose.override.yml
+
+# === Logs ===
+*.log
+
+# === Documentació (no calen al container) ===
+*.md
