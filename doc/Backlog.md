@@ -8,7 +8,7 @@
 
 ### Base de datos
 - [ ] Crear migración `roles` (id, name: player|owner)
-- [ ] Modificar migración `users` por defecto: añadir `role_id` FK → roles, eliminar campo innecesarios
+- [ ] Crear migración `users` (id, name, email, password, role_id FK, timestamps) — substituir la que ve per defecte
 
 ### Backend
 - [/] Instalar y configurar Laravel Sanctum — ✅ instalado con composer, ❌ pendiente publicar config y activar middleware
