@@ -1,51 +1,30 @@
 import { useState, useEffect, type FormEvent, type ChangeEvent } from 'react'
 import { motion } from 'framer-motion'
 import {
-  User,
   Mail,
   Lock,
   Eye,
   EyeOff,
-  ArrowRight,
   CheckCircle,
   AlertCircle,
   Sun,
   Moon,
+  LogIn,
 } from 'lucide-react'
-import './RegisterForm.css'
+import './LoginForm.css'
 
 interface FormData {
-  name: string
-  lastName: string
   email: string
   password: string
 }
 
-interface RegisterFormProps {
-  onSwitchToLogin?: () => void
-}
-
 interface FormErrors {
-  name?: string
-  lastName?: string
   email?: string
   password?: string
 }
 
 function validate(data: FormData): FormErrors {
   const errors: FormErrors = {}
-
-  if (!data.name.trim()) {
-    errors.name = 'El nom és obligatori'
-  } else if (data.name.trim().length < 2) {
-    errors.name = 'El nom ha de tenir almenys 2 caràcters'
-  }
-
-  if (!data.lastName.trim()) {
-    errors.lastName = 'El cognom és obligatori'
-  } else if (data.lastName.trim().length < 2) {
-    errors.lastName = 'El cognom ha de tenir almenys 2 caràcters'
-  }
 
   if (!data.email.trim()) {
     errors.email = 'El correu electrònic és obligatori'
@@ -55,10 +34,6 @@ function validate(data: FormData): FormErrors {
 
   if (!data.password) {
     errors.password = 'La contrasenya és obligatòria'
-  } else if (data.password.length < 8) {
-    errors.password = 'La contrasenya ha de tenir almenys 8 caràcters'
-  } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(data.password)) {
-    errors.password = 'Ha d\'incloure majúscula, minúscula i número'
   }
 
   return errors
@@ -104,16 +79,16 @@ function PadelLogo() {
 }
 
 const fieldIcons: Record<string, React.ReactNode> = {
-  name: <User size={17} />,
-  lastName: <User size={17} />,
   email: <Mail size={17} />,
   password: <Lock size={17} />,
 }
 
-function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
+interface LoginFormProps {
+  onSwitchToRegister?: () => void
+}
+
+function LoginForm({ onSwitchToRegister }: LoginFormProps) {
   const [form, setForm] = useState<FormData>({
-    name: '',
-    lastName: '',
     email: '',
     password: '',
   })
@@ -154,17 +129,17 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
     const validation = validate(form)
     setErrors(validation)
-    setTouched(new Set(['name', 'lastName', 'email', 'password']))
+    setTouched(new Set(['email', 'password']))
 
     if (Object.keys(validation).length > 0) return
 
     setIsSubmitting(true)
 
-    // Simulated API call — connect to POST /api/register when backend is ready
+    // Simulated API call — connect to POST /api/login when backend is ready
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500))
-      alert('Registre completat! Benvingut/da a PistasPadel 🎾')
-      setForm({ name: '', lastName: '', email: '', password: '' })
+      alert('Sessió iniciada! Benvingut/da de nou 🎾')
+      setForm({ email: '', password: '' })
       setTouched(new Set())
       setErrors({})
     } finally {
@@ -181,16 +156,16 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   }
 
   function inputClass(field: keyof FormErrors): string {
-    const classes = ['register-form-input']
-    if (fieldError(field)) classes.push('register-form-input--error')
-    else if (fieldValid(field)) classes.push('register-form-input--valid')
-    if (field === 'password') classes.push('register-form-input--password')
+    const classes = ['login-form-input']
+    if (fieldError(field)) classes.push('login-form-input--error')
+    else if (fieldValid(field)) classes.push('login-form-input--valid')
+    if (field === 'password') classes.push('login-form-input--password')
     return classes.join(' ')
   }
 
   function renderInputIcon(field: string): React.ReactNode {
     return (
-      <span className="register-form-input-icon" aria-hidden="true">
+      <span className="login-form-input-icon" aria-hidden="true">
         {fieldIcons[field]}
       </span>
     )
@@ -200,14 +175,14 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     if (!touched.has(field)) return null
     if (fieldError(field)) {
       return (
-        <span className="register-form-input-status" aria-hidden="true">
+        <span className="login-form-input-status" aria-hidden="true">
           <AlertCircle size={17} color="#ef4444" />
         </span>
       )
     }
     if (fieldValid(field)) {
       return (
-        <span className="register-form-input-status" aria-hidden="true">
+        <span className="login-form-input-status" aria-hidden="true">
           <CheckCircle size={17} color="#22c55e" />
         </span>
       )
@@ -217,97 +192,43 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
   return (
     <motion.div
-      className={`register-form-wrapper${isDark ? ' register-form-wrapper--dark' : ''}`}
+      className={`login-form-wrapper${isDark ? ' login-form-wrapper--dark' : ''}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.35 }}
     >
       <motion.div
-        className="register-form-card"
+        className="login-form-card"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
         <button
           type="button"
-          className="register-form-dark-toggle"
+          className="login-form-dark-toggle"
           onClick={() => setIsDark((v) => !v)}
           aria-label={isDark ? 'Activar mode clar' : 'Activar mode fosc'}
         >
           {isDark ? <Sun size={16} /> : <Moon size={16} />}
         </button>
 
-        <div className="register-form-header">
-          <div className="register-form-padel-icon">
+        <div className="login-form-header">
+          <div className="login-form-padel-icon">
             <PadelLogo />
           </div>
-          <h1 className="register-form-title">Crea el teu compte</h1>
-          <p className="register-form-subtitle">
-            Registra't per reservar pistes i unir-te a partits de pádel
+          <h1 className="login-form-title">Inicia sessió</h1>
+          <p className="login-form-subtitle">
+            Accedeix al teu compte per reservar pistes i unir-te a partits
           </p>
         </div>
 
         <form onSubmit={handleSubmit} noValidate>
-          <div className="register-form-fields">
-            <div className="register-form-field">
-              <label className="register-form-label" htmlFor="name">
-                Nom
-              </label>
-              <div className="register-form-input-wrapper">
-                {renderInputIcon('name')}
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  className={inputClass('name')}
-                  placeholder="Ex: Marc"
-                  value={form.name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="given-name"
-                />
-                {renderStatusIcon('name')}
-              </div>
-              {fieldError('name') && (
-                <span className="register-form-error">
-                  <AlertCircle size={13} />
-                  {fieldError('name')}
-                </span>
-              )}
-            </div>
-
-            <div className="register-form-field">
-              <label className="register-form-label" htmlFor="lastName">
-                Cognom
-              </label>
-              <div className="register-form-input-wrapper">
-                {renderInputIcon('lastName')}
-                <input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  className={inputClass('lastName')}
-                  placeholder="Ex: López"
-                  value={form.lastName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="family-name"
-                />
-                {renderStatusIcon('lastName')}
-              </div>
-              {fieldError('lastName') && (
-                <span className="register-form-error">
-                  <AlertCircle size={13} />
-                  {fieldError('lastName')}
-                </span>
-              )}
-            </div>
-
-            <div className="register-form-field">
-              <label className="register-form-label" htmlFor="email">
+          <div className="login-form-fields">
+            <div className="login-form-field">
+              <label className="login-form-label" htmlFor="email">
                 Correu electrònic
               </label>
-              <div className="register-form-input-wrapper">
+              <div className="login-form-input-wrapper">
                 {renderInputIcon('email')}
                 <input
                   id="email"
@@ -323,33 +244,33 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                 {renderStatusIcon('email')}
               </div>
               {fieldError('email') && (
-                <span className="register-form-error">
+                <span className="login-form-error">
                   <AlertCircle size={13} />
                   {fieldError('email')}
                 </span>
               )}
             </div>
 
-            <div className="register-form-field">
-              <label className="register-form-label" htmlFor="password">
+            <div className="login-form-field">
+              <label className="login-form-label" htmlFor="password">
                 Contrasenya
               </label>
-              <div className="register-form-input-wrapper">
+              <div className="login-form-input-wrapper">
                 {renderInputIcon('password')}
                 <input
                   id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   className={inputClass('password')}
-                  placeholder="Mínim 8 caràcters"
+                  placeholder="Introdueix la contrasenya"
                   value={form.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  autoComplete="new-password"
+                  autoComplete="current-password"
                 />
                 <button
                   type="button"
-                  className="register-form-toggle-password"
+                  className="login-form-toggle-password"
                   onClick={() => setShowPassword((v) => !v)}
                   aria-label={showPassword ? 'Amagar contrasenya' : 'Mostrar contrasenya'}
                   tabIndex={-1}
@@ -359,7 +280,7 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                 {renderStatusIcon('password')}
               </div>
               {fieldError('password') && (
-                <span className="register-form-error">
+                <span className="login-form-error">
                   <AlertCircle size={13} />
                   {fieldError('password')}
                 </span>
@@ -369,7 +290,7 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
           <motion.button
             type="submit"
-            className={`register-form-submit${isSubmitting ? ' register-form-submit--loading' : ''}`}
+            className={`login-form-submit${isSubmitting ? ' login-form-submit--loading' : ''}`}
             disabled={isSubmitting}
             whileHover={!isSubmitting ? { scale: 1.02 } : undefined}
             whileTap={!isSubmitting ? { scale: 0.98 } : undefined}
@@ -377,23 +298,23 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
           >
             {!isSubmitting && (
               <>
-                Crear compte
-                <ArrowRight size={18} />
+                Inicia sessió
+                <LogIn size={18} />
               </>
             )}
           </motion.button>
         </form>
 
-        <div className="register-form-divider">
-          <div className="register-form-divider-content">
-            <span className="register-form-divider-or">O</span>
-            <span className="register-form-login-text">Ja tens compte?</span>
+        <div className="login-form-divider">
+          <div className="login-form-divider-content">
+            <span className="login-form-divider-or">O</span>
+            <span className="login-form-register-text">No tens compte?</span>
             <button
               type="button"
-              className="register-form-link"
-              onClick={onSwitchToLogin}
+              className="login-form-link"
+              onClick={onSwitchToRegister}
             >
-              Inicia sessió
+              Crea'n un
             </button>
           </div>
         </div>
@@ -402,4 +323,4 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   )
 }
 
-export default RegisterForm
+export default LoginForm

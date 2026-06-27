@@ -1,13 +1,5 @@
-/* Override root container so the form can use the full viewport */
-#root {
-  width: 100% !important;
-  max-width: 100% !important;
-  border-inline: none !important;
-  text-align: left !important;
-}
-
 /* Wrapper — full-screen container that centers the card vertically and horizontally */
-.register-form-wrapper {
+.login-form-wrapper {
   --green: #166534;
   --green-hover: #15803d;
   --green-light: #22c55e;
@@ -35,8 +27,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Card — floating container with a subtle inner sheen at the top */
-.register-form-card {
+/* Card — floating container */
+.login-form-card {
   width: 100%;
   max-width: 528px;
   background: var(--white);
@@ -46,7 +38,7 @@
   position: relative;
 }
 
-.register-form-card::before {
+.login-form-card::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -55,8 +47,8 @@
   pointer-events: none;
 }
 
-/* Dark mode toggle — small icon button at the top-right of the card */
-.register-form-dark-toggle {
+/* Dark mode toggle */
+.login-form-dark-toggle {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -74,18 +66,18 @@
   transition: all 0.2s ease;
 }
 
-.register-form-dark-toggle:hover {
+.login-form-dark-toggle:hover {
   background: var(--border);
   color: var(--text);
 }
 
-/* Header — padel icon, title and subtitle */
-.register-form-header {
+/* Header */
+.login-form-header {
   text-align: center;
   margin-bottom: 26px;
 }
 
-.register-form-padel-icon {
+.login-form-padel-icon {
   width: 48px;
   height: 48px;
   margin: 0 auto 14px;
@@ -98,7 +90,7 @@
   box-shadow: 0 6px 18px rgba(22, 101, 52, 0.18);
 }
 
-.register-form-title {
+.login-form-title {
   font-size: 30px;
   font-weight: 700;
   color: var(--text);
@@ -107,7 +99,7 @@
   line-height: 1.2;
 }
 
-.register-form-subtitle {
+.login-form-subtitle {
   font-size: 14px;
   color: var(--text-secondary);
   margin: 0;
@@ -115,32 +107,31 @@
   font-weight: 400;
 }
 
-/* Form fields container */
-.register-form-fields {
+/* Form fields */
+.login-form-fields {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.register-form-field {
+.login-form-field {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.register-form-label {
+.login-form-label {
   font-size: 14px;
   font-weight: 600;
   color: var(--text);
   line-height: 1.3;
 }
 
-/* Input wrapper — positions icons inside the input area */
-.register-form-input-wrapper {
+.login-form-input-wrapper {
   position: relative;
 }
 
-.register-form-input-icon {
+.login-form-input-icon {
   position: absolute;
   left: 14px;
   top: 50%;
@@ -152,22 +143,11 @@
   transition: color 0.2s ease;
 }
 
-.register-form-input-wrapper:focus-within .register-form-input-icon {
+.login-form-input-wrapper:focus-within .login-form-input-icon {
   color: var(--green);
 }
 
-.register-form-input-status {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-}
-
-/* Password visibility toggle */
-.register-form-toggle-password {
+.login-form-toggle-password {
   position: absolute;
   right: 12px;
   top: 50%;
@@ -182,12 +162,27 @@
   transition: color 0.15s ease;
 }
 
-.register-form-toggle-password:hover {
+.login-form-toggle-password:hover {
   color: var(--text-secondary);
 }
 
-/* Input base styles */
-.register-form-input {
+/* Status icon (CheckCircle / AlertCircle) — absolutely positioned on the right */
+.login-form-input-status {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* When the password toggle button is present, shift status icon left so both fit */
+.login-form-toggle-password ~ .login-form-input-status {
+  right: 44px;
+}
+
+.login-form-input {
   width: 100%;
   height: 48px;
   padding: 0 14px 0 44px;
@@ -204,47 +199,43 @@
   box-shadow: var(--shadow-sm);
 }
 
-.register-form-input::placeholder {
+.login-form-input::placeholder {
   color: var(--text-tertiary);
   font-weight: 400;
 }
 
-.register-form-input:hover {
+.login-form-input:hover {
   border-color: var(--border-hover);
 }
 
-.register-form-input:focus {
+.login-form-input:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 4px rgba(22, 101, 52, 0.08), var(--shadow-sm);
 }
 
-/* Valid state — green border and green glow on focus */
-.register-form-input--valid {
+.login-form-input--valid {
   border-color: var(--success);
 }
 
-.register-form-input--valid:focus {
+.login-form-input--valid:focus {
   border-color: var(--success);
   box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.08), var(--shadow-sm);
 }
 
-/* Error state — red border and red glow on focus */
-.register-form-input--error {
+.login-form-input--error {
   border-color: var(--error);
 }
 
-.register-form-input--error:focus {
+.login-form-input--error:focus {
   border-color: var(--error);
   box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08), var(--shadow-sm);
 }
 
-/* Extra right padding on password so the eye icon doesn't overlap text */
-.register-form-input--password {
+.login-form-input--password {
   padding-right: 44px;
 }
 
-/* Inline error message under each field */
-.register-form-error {
+.login-form-error {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -255,7 +246,7 @@
 }
 
 /* Submit button */
-.register-form-submit {
+.login-form-submit {
   width: 100%;
   height: 50px;
   margin-top: 16px;
@@ -277,24 +268,23 @@
   position: relative;
 }
 
-.register-form-submit:hover {
+.login-form-submit:hover {
   background: var(--green-hover);
   box-shadow: 0 8px 24px rgba(22, 101, 52, 0.25);
 }
 
-.register-form-submit:disabled {
+.login-form-submit:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
-/* Loading state — hides the text and shows a spinner */
-.register-form-submit--loading {
+.login-form-submit--loading {
   color: transparent;
 }
 
-.register-form-submit--loading::after {
+.login-form-submit--loading::after {
   content: '';
   position: absolute;
   width: 20px;
@@ -305,32 +295,32 @@
   border: 2.5px solid rgba(255, 255, 255, 0.25);
   border-top-color: var(--white);
   border-radius: 50%;
-  animation: register-spin 0.6s linear infinite;
+  animation: login-spin 0.6s linear infinite;
 }
 
-@keyframes register-spin {
+@keyframes login-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-/* Divider with "O" in the middle, then "Ja tens compte? / Inicia sessió" below */
-.register-form-divider {
+/* Divider and register link */
+.login-form-divider {
   display: flex;
   align-items: center;
   gap: 16px;
   margin-top: 22px;
 }
 
-.register-form-divider::before,
-.register-form-divider::after {
+.login-form-divider::before,
+.login-form-divider::after {
   content: '';
   flex: 1;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--border), transparent);
 }
 
-.register-form-divider-content {
+.login-form-divider-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -338,7 +328,7 @@
   white-space: nowrap;
 }
 
-.register-form-divider-or {
+.login-form-divider-or {
   font-size: 12px;
   color: var(--text-tertiary);
   font-weight: 500;
@@ -346,59 +336,63 @@
   letter-spacing: 0.5px;
 }
 
-.register-form-login-text {
+.login-form-register-text {
   font-size: 14px;
   color: var(--text-secondary);
   font-weight: 400;
 }
 
-.register-form-link {
+.login-form-link {
   font-size: 14px;
   font-weight: 600;
   color: var(--green);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
-.register-form-link:hover {
+.login-form-link:hover {
   color: var(--green-hover);
 }
 
-/* Tablet and below */
+/* Tablet */
 @media (max-width: 768px) {
-  .register-form-wrapper {
+  .login-form-wrapper {
     padding: 24px 16px;
     align-items: flex-start;
     padding-top: 40px;
   }
 
-  .register-form-card {
+  .login-form-card {
     padding: 24px 28px 24px;
     border-radius: 20px;
     box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(226, 232, 240, 0.5);
   }
 
-  .register-form-padel-icon {
+  .login-form-padel-icon {
     width: 44px;
     height: 44px;
   }
 
-  .register-form-title {
+  .login-form-title {
     font-size: 26px;
   }
 
-  .register-form-input {
+  .login-form-input {
     height: 46px;
   }
 
-  .register-form-submit {
+  .login-form-submit {
     height: 48px;
   }
 }
 
-/* Mobile — remove the background and shadow, full-width card */
+/* Mobile */
 @media (max-width: 480px) {
-  .register-form-wrapper {
+  .login-form-wrapper {
     padding: 0;
     background: var(--white);
     align-items: flex-start;
@@ -406,50 +400,50 @@
     background-image: none;
   }
 
-  .register-form-card {
+  .login-form-card {
     max-width: 100%;
     padding: 20px 20px 24px;
     border-radius: 0;
     box-shadow: none;
   }
 
-  .register-form-card::before {
+  .login-form-card::before {
     display: none;
   }
 
-  .register-form-title {
+  .login-form-title {
     font-size: 24px;
   }
 
-  .register-form-subtitle {
+  .login-form-subtitle {
     font-size: 14px;
   }
 
-  .register-form-padel-icon {
+  .login-form-padel-icon {
     width: 40px;
     height: 40px;
     margin-bottom: 12px;
   }
 
-  .register-form-header {
+  .login-form-header {
     margin-bottom: 22px;
   }
 
-  .register-form-fields {
+  .login-form-fields {
     gap: 10px;
   }
 
-  .register-form-submit {
+  .login-form-submit {
     margin-top: 14px;
   }
 
-  .register-form-divider {
+  .login-form-divider {
     margin-top: 18px;
   }
 }
 
-/* Dark mode overrides — activated by the class or system preference */
-.register-form-wrapper--dark {
+/* Dark mode */
+.login-form-wrapper--dark {
   --bg: #0f1115;
   --white: #181b20;
   --text: #f1f5f9;
@@ -464,56 +458,64 @@
     radial-gradient(ellipse at 80% 50%, rgba(22, 101, 52, 0.04) 0%, transparent 55%);
 }
 
-.register-form-wrapper--dark .register-form-card::before {
+.login-form-wrapper--dark .login-form-card::before {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
 }
 
-.register-form-wrapper--dark .register-form-input {
+.login-form-wrapper--dark .login-form-input {
   background: #13161c;
 }
 
-.register-form-wrapper--dark .register-form-input:focus {
+.login-form-wrapper--dark .login-form-input:focus {
   border-color: var(--green-light);
   box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
 }
 
-.register-form-wrapper--dark .register-form-input--valid {
+.login-form-wrapper--dark .login-form-input--valid {
   border-color: var(--green-light);
 }
 
-.register-form-wrapper--dark .register-form-input--valid:focus {
+.login-form-wrapper--dark .login-form-input--valid:focus {
   box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
 }
 
-.register-form-wrapper--dark .register-form-submit:hover {
+.login-form-wrapper--dark .login-form-input--error {
+  border-color: var(--error);
+}
+
+.login-form-wrapper--dark .login-form-input--error:focus {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+.login-form-wrapper--dark .login-form-submit:hover {
   background: var(--green-light);
 }
 
-.register-form-wrapper--dark .register-form-link {
+.login-form-wrapper--dark .login-form-link {
   color: var(--green-light);
 }
 
-.register-form-wrapper--dark .register-form-link:hover {
+.login-form-wrapper--dark .login-form-link:hover {
   color: #4ade80;
 }
 
-.register-form-wrapper--dark .register-form-padel-icon {
+.login-form-wrapper--dark .login-form-padel-icon {
   box-shadow: 0 6px 18px rgba(22, 101, 52, 0.3);
 }
 
-.register-form-wrapper--dark .register-form-dark-toggle {
+.login-form-wrapper--dark .login-form-dark-toggle {
   background: #1f232b;
   border-color: #2e3340;
   color: var(--text-secondary);
 }
 
-.register-form-wrapper--dark .register-form-dark-toggle:hover {
+.login-form-wrapper--dark .login-form-dark-toggle:hover {
   background: #2e3340;
   color: var(--text);
 }
 
 @media (max-width: 480px) {
-  .register-form-wrapper--dark {
+  .login-form-wrapper--dark {
     background: var(--white);
   }
 }
