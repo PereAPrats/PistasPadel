@@ -2,11 +2,8 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY src/package*.json ./
-RUN npm install
-
 COPY src/ .
 
 EXPOSE 5173
 
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+CMD ["sh", "-c", "npm install && npm run dev -- --host 0.0.0.0"]

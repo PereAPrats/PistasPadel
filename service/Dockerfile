@@ -10,8 +10,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY src/ .
 
-RUN composer install --no-interaction --prefer-dist
-
 EXPOSE 8000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["sh", "-c", "composer install --no-interaction --prefer-dist && php artisan serve --host=0.0.0.0 --port=8000"]
