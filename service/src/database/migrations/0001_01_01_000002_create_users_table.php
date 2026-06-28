@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Crea la taula 'users' amb el rol assignat, i les taules auxiliars
+     * 'password_reset_tokens' i 'sessions' que Laravel necessita internament.
      */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('role_id')->constrained();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -38,7 +40,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Elimina les taules 'users', 'password_reset_tokens' i 'sessions'.
      */
     public function down(): void
     {
