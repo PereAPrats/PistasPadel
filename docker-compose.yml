@@ -40,7 +40,8 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ./ui/src:/app
+      - ./ui/app
+      - /app/node_modules
     depends_on:
       - api
 
