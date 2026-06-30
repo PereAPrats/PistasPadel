@@ -1,15 +1,25 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
 import RegisterForm from './components/RegisterForm'
-import LoginForm from './components/LoginForm'
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false)
-
-  if (isLogin) {
-    return <LoginForm onSwitchToRegister={() => setIsLogin(false)} />
-  }
-
-  return <RegisterForm onSwitchToLogin={() => setIsLogin(true)} />
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/register"
+            element={<RegisterForm onSwitchToLogin={() => {}} />}
+          />
+        </Routes>
+      </main>
+      <Footer />
+    </BrowserRouter>
+  )
 }
 
 export default App

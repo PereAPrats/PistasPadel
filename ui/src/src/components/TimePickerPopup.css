@@ -1,0 +1,84 @@
+.timepicker-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+.timepicker-popup {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 11;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: 12px;
+  width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  animation: timepickerIn 0.2s ease-out;
+}
+
+@keyframes timepickerIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timepicker-popup::-webkit-scrollbar {
+  width: 4px;
+}
+
+.timepicker-popup::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.timepicker-popup::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 2px;
+}
+
+.timepicker-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-h);
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, color 0.15s;
+}
+
+.timepicker-slot:hover {
+  background: var(--gray-100);
+}
+
+.timepicker-slot.selected {
+  background: var(--green-600);
+  color: white;
+  font-weight: 600;
+}
+
+.timepicker-slot.selected:hover {
+  background: var(--green-700);
+}
+
+@media (max-width: 640px) {
+  .timepicker-popup {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    max-height: 50vh;
+  }
+}

@@ -1,0 +1,143 @@
+.datepicker-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+.datepicker-popup {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 11;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: 20px;
+  width: 320px;
+  animation: popupIn 0.2s ease-out;
+}
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.datepicker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.datepicker-month {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.datepicker-nav {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--gray-600);
+  transition: background 0.2s, color 0.2s;
+}
+
+.datepicker-nav:hover {
+  background: var(--gray-100);
+  color: var(--text-h);
+}
+
+.datepicker-nav svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.datepicker-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.datepicker-weekday {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-500);
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+.datepicker-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.datepicker-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-h);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.datepicker-day:hover {
+  background: var(--gray-100);
+}
+
+.datepicker-day.empty {
+  cursor: default;
+}
+
+.datepicker-day.today {
+  font-weight: 700;
+  color: var(--green-700);
+  background: var(--green-50);
+}
+
+.datepicker-day.selected {
+  background: var(--green-600);
+  color: white;
+  font-weight: 600;
+}
+
+.datepicker-day.selected:hover {
+  background: var(--green-700);
+}
+
+.datepicker-day.other-month {
+  color: var(--gray-300);
+}
+
+@media (max-width: 640px) {
+  .datepicker-popup {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
