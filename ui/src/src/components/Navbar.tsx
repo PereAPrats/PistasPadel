@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
-import { useAuth } from './AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 type UserRole = 'player' | 'club' | null
 

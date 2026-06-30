@@ -24,9 +24,10 @@ class AuthController extends Controller
 
         // Creació de l'usuari amb la contrasenya encriptada
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
+            'role_id'  => $request->role_id,
         ]);
 
         // Generació del token d'API amb Sanctum
@@ -35,6 +36,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'user' => $user->load('role'),
         ], 201);
     }
 
@@ -45,8 +47,9 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required',
+            'role_id'  => 'required|exists:roles,id', 
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -64,6 +67,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'user' => $user->load('role'),
         ]);
     }
 
