@@ -3,12 +3,14 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import RegisterForm from './components/RegisterForm'
+import { AuthProvider } from './context/AuthContext'
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <main>
+      <AuthProvider>
+       <Navbar />
+       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
@@ -18,6 +20,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      </AuthProvider>
     </BrowserRouter>
   )
 }

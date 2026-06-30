@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
+import { useAuth } from './AuthContext';
 
 type UserRole = 'player' | 'club' | null
 
@@ -36,8 +37,9 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
 
-  // Més endavant vindrà d'AuthContext: const { user } = useAuth()
-  const userRole: UserRole = null
+  const { auth, logout } = useAuth();
+  // El rol vindrà de l'estat d'autenticació
+  const userRole = auth.role as UserRole
 
   const closeMobile = useCallback(() => setMobileOpen(false), [])
 
@@ -107,7 +109,7 @@ export default function Navbar() {
                 <Link to="/perfil" className="navbar-user">
                   <span className="navbar-user-avatar">J</span>
                 </Link>
-                <button className="navbar-logout">Cerrar sesión</button>
+                <button className="navbar-logout" onClick={logout}>Cerrar sesión</button>
               </>
             )}
             {userRole === 'club' && (
@@ -115,7 +117,7 @@ export default function Navbar() {
                 <Link to="/perfil-club" className="navbar-user">
                   <span className="navbar-user-avatar">C</span>
                 </Link>
-                <button className="navbar-logout">Cerrar sesión</button>
+                <button className="navbar-logout" onClick={logout}>Cerrar sesión</button>
               </>
             )}
           </div>
