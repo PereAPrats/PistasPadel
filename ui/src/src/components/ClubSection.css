@@ -1,0 +1,101 @@
+.club-section {
+  padding: 80px 0;
+  background: var(--bg);
+}
+
+.club-section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.club-section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.club-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.club-section-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-h);
+  margin-bottom: 10px;
+}
+
+.club-section-subtitle {
+  font-size: 16px;
+  color: var(--gray-600);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.club-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.club-section-footer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.club-section-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--green-700);
+  background: var(--green-50);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.club-section-btn:hover {
+  background: var(--green-100);
+  color: var(--green-800);
+  transform: translateY(-1px);
+}
+
+.club-section-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+@media (max-width: 900px) {
+  .club-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .club-section {
+    padding: 56px 0;
+  }
+
+  .club-section-title {
+    font-size: 26px;
+  }
+
+  .club-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

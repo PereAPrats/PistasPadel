@@ -1,0 +1,519 @@
+/* Override root container so the form can use the full viewport */
+#root {
+  width: 100% !important;
+  max-width: 100% !important;
+  border-inline: none !important;
+  text-align: left !important;
+}
+
+/* Wrapper — full-screen container that centers the card vertically and horizontally */
+.register-form-wrapper {
+  --green: #166534;
+  --green-hover: #15803d;
+  --green-light: #22c55e;
+  --white: #ffffff;
+  --bg: #f8fafc;
+  --text: #1e293b;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+  --border: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --error: #ef4444;
+  --success: var(--green-light);
+  --shadow-card: 0 24px 48px -12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(226, 232, 240, 0.5);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(22, 101, 52, 0.03) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 50%, rgba(22, 101, 52, 0.025) 0%, transparent 55%);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Card — floating container with a subtle inner sheen at the top */
+.register-form-card {
+  width: 100%;
+  max-width: 528px;
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: var(--shadow-card);
+  padding: 28px 32px 28px;
+  position: relative;
+}
+
+.register-form-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Dark mode toggle — small icon button at the top-right of the card */
+.register-form-dark-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.register-form-dark-toggle:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+/* Header — padel icon, title and subtitle */
+.register-form-header {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.register-form-padel-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 14px;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--green) 0%, #14532d 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(22, 101, 52, 0.18);
+}
+
+.register-form-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 4px;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.register-form-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Form fields container */
+.register-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.register-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.register-form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+/* Input wrapper — positions icons inside the input area */
+.register-form-input-wrapper {
+  position: relative;
+}
+
+.register-form-input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.register-form-input-wrapper:focus-within .register-form-input-icon {
+  color: var(--green);
+}
+
+.register-form-input-status {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* Password visibility toggle */
+.register-form-toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s ease;
+}
+
+.register-form-toggle-password:hover {
+  color: var(--text-secondary);
+}
+
+/* Input base styles */
+.register-form-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px 0 44px;
+  font-size: 15px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 450;
+  color: var(--text);
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  box-shadow: var(--shadow-sm);
+}
+
+.register-form-input::placeholder {
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+.register-form-input:hover {
+  border-color: var(--border-hover);
+}
+
+.register-form-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(22, 101, 52, 0.08), var(--shadow-sm);
+}
+
+/* Valid state — green border and green glow on focus */
+.register-form-input--valid {
+  border-color: var(--success);
+}
+
+.register-form-input--valid:focus {
+  border-color: var(--success);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.08), var(--shadow-sm);
+}
+
+/* Error state — red border and red glow on focus */
+.register-form-input--error {
+  border-color: var(--error);
+}
+
+.register-form-input--error:focus {
+  border-color: var(--error);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08), var(--shadow-sm);
+}
+
+/* Extra right padding on password so the eye icon doesn't overlap text */
+.register-form-input--password {
+  padding-right: 44px;
+}
+
+/* Inline error message under each field */
+.register-form-error {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--error);
+  font-weight: 450;
+  line-height: 1.3;
+}
+
+/* Submit button */
+.register-form-submit {
+  width: 100%;
+  height: 50px;
+  margin-top: 16px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--white);
+  background: var(--green);
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(22, 101, 52, 0.2);
+  position: relative;
+}
+
+.register-form-submit:hover {
+  background: var(--green-hover);
+  box-shadow: 0 8px 24px rgba(22, 101, 52, 0.25);
+}
+
+.register-form-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading state — hides the text and shows a spinner */
+.register-form-submit--loading {
+  color: transparent;
+}
+
+.register-form-submit--loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin: -10px 0 0 -10px;
+  border: 2.5px solid rgba(255, 255, 255, 0.25);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: register-spin 0.6s linear infinite;
+}
+
+@keyframes register-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Divider with "O" in the middle, then "Ja tens compte? / Inicia sessió" below */
+.register-form-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.register-form-divider::before,
+.register-form-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.register-form-divider-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.register-form-divider-or {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.register-form-login-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.register-form-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.register-form-link:hover {
+  color: var(--green-hover);
+}
+
+/* Tablet and below */
+@media (max-width: 768px) {
+  .register-form-wrapper {
+    padding: 24px 16px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .register-form-card {
+    padding: 24px 28px 24px;
+    border-radius: 20px;
+    box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(226, 232, 240, 0.5);
+  }
+
+  .register-form-padel-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .register-form-title {
+    font-size: 26px;
+  }
+
+  .register-form-input {
+    height: 46px;
+  }
+
+  .register-form-submit {
+    height: 48px;
+  }
+}
+
+/* Mobile — remove the background and shadow, full-width card */
+@media (max-width: 480px) {
+  .register-form-wrapper {
+    padding: 0;
+    background: var(--white);
+    align-items: flex-start;
+    padding-top: 24px;
+    background-image: none;
+  }
+
+  .register-form-card {
+    max-width: 100%;
+    padding: 20px 20px 24px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .register-form-card::before {
+    display: none;
+  }
+
+  .register-form-title {
+    font-size: 24px;
+  }
+
+  .register-form-subtitle {
+    font-size: 14px;
+  }
+
+  .register-form-padel-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 12px;
+  }
+
+  .register-form-header {
+    margin-bottom: 22px;
+  }
+
+  .register-form-fields {
+    gap: 10px;
+  }
+
+  .register-form-submit {
+    margin-top: 14px;
+  }
+
+  .register-form-divider {
+    margin-top: 18px;
+  }
+}
+
+/* Dark mode overrides — activated by the class or system preference */
+.register-form-wrapper--dark {
+  --bg: #0f1115;
+  --white: #181b20;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --border: #2e3340;
+  --border-hover: #3e4454;
+  --shadow-card: 0 24px 48px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(46, 51, 64, 0.6);
+
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(22, 101, 52, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 50%, rgba(22, 101, 52, 0.04) 0%, transparent 55%);
+}
+
+.register-form-wrapper--dark .register-form-card::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+}
+
+.register-form-wrapper--dark .register-form-input {
+  background: #13161c;
+}
+
+.register-form-wrapper--dark .register-form-input:focus {
+  border-color: var(--green-light);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+}
+
+.register-form-wrapper--dark .register-form-input--valid {
+  border-color: var(--green-light);
+}
+
+.register-form-wrapper--dark .register-form-input--valid:focus {
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+}
+
+.register-form-wrapper--dark .register-form-submit:hover {
+  background: var(--green-light);
+}
+
+.register-form-wrapper--dark .register-form-link {
+  color: var(--green-light);
+}
+
+.register-form-wrapper--dark .register-form-link:hover {
+  color: #4ade80;
+}
+
+.register-form-wrapper--dark .register-form-padel-icon {
+  box-shadow: 0 6px 18px rgba(22, 101, 52, 0.3);
+}
+
+.register-form-wrapper--dark .register-form-dark-toggle {
+  background: #1f232b;
+  border-color: #2e3340;
+  color: var(--text-secondary);
+}
+
+.register-form-wrapper--dark .register-form-dark-toggle:hover {
+  background: #2e3340;
+  color: var(--text);
+}
+
+@media (max-width: 480px) {
+  .register-form-wrapper--dark {
+    background: var(--white);
+  }
+}
