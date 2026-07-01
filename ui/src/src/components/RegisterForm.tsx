@@ -1,4 +1,5 @@
-import { useState, useEffect, type FormEvent, type ChangeEvent } from 'react'
+import { useState, type FormEvent, type ChangeEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   User,
@@ -9,9 +10,8 @@ import {
   ArrowRight,
   CheckCircle,
   AlertCircle,
-  Sun,
-  Moon,
 } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 import './RegisterForm.css'
 
 interface FormData {
@@ -36,29 +36,29 @@ function validate(data: FormData): FormErrors {
   const errors: FormErrors = {}
 
   if (!data.name.trim()) {
-    errors.name = 'El nom és obligatori'
-  } else if (data.name.trim().length < 2) {
-    errors.name = 'El nom ha de tenir almenys 2 caràcters'
+    errors.name = 'El nombre es obligatorio'
+  } else if (data.name.trim().length < 3) {
+    errors.name = 'El nombre tiene que tener minimo 3 carateres'
   }
 
   if (!data.lastName.trim()) {
-    errors.lastName = 'El cognom és obligatori'
-  } else if (data.lastName.trim().length < 2) {
-    errors.lastName = 'El cognom ha de tenir almenys 2 caràcters'
+    errors.lastName = 'El apellido es obligatorio'
+  } else if (data.lastName.trim().length < 3) {
+    errors.lastName = 'El apellido ha de tener minimo 3 caracteres'
   }
 
   if (!data.email.trim()) {
-    errors.email = 'El correu electrònic és obligatori'
+    errors.email = 'El correo electrónico es obligaotrio'
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = 'El correu electrònic no és vàlid'
+    errors.email = 'El correo electrónico no es valido'
   }
 
   if (!data.password) {
-    errors.password = 'La contrasenya és obligatòria'
+    errors.password = 'La contraseña es obligatoria'
   } else if (data.password.length < 8) {
-    errors.password = 'La contrasenya ha de tenir almenys 8 caràcters'
+    errors.password = 'La contraseña ha de tener minimo 8 caracteres'
   } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(data.password)) {
-    errors.password = 'Ha d\'incloure majúscula, minúscula i número'
+    errors.password = 'Ha de incluir mayúscula, minúscula y número'
   }
 
   return errors
@@ -111,6 +111,8 @@ const fieldIcons: Record<string, React.ReactNode> = {
 }
 
 function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
+  const { isDark } = useTheme()
+
   const [form, setForm] = useState<FormData>({
     name: '',
     lastName: '',
@@ -122,16 +124,6 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [touched, setTouched] = useState<Set<string>>(new Set())
-  const [isDark, setIsDark] = useState(() =>
-    matchMedia('(prefers-color-scheme: dark)').matches
-  )
-
-  useEffect(() => {
-    const mq = matchMedia('(prefers-color-scheme: dark)')
-    const handler = (e: MediaQueryListEvent) => setIsDark(e.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
-  }, [])
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
@@ -159,17 +151,6 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     if (Object.keys(validation).length > 0) return
 
     setIsSubmitting(true)
-
-    // Simulated API call — connect to POST /api/register when backend is ready
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      alert('Registre completat! Benvingut/da a PistasPadel 🎾')
-      setForm({ name: '', lastName: '', email: '', password: '' })
-      setTouched(new Set())
-      setErrors({})
-    } finally {
-      setIsSubmitting(false)
-    }
   }
 
   function fieldError(field: keyof FormErrors): string | undefined {
@@ -217,7 +198,7 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
   return (
     <motion.div
-      className={`register-form-wrapper${isDark ? ' register-form-wrapper--dark' : ''}`}
+      className="register-form-wrapper"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.35 }}
@@ -228,22 +209,13 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
-        <button
-          type="button"
-          className="register-form-dark-toggle"
-          onClick={() => setIsDark((v) => !v)}
-          aria-label={isDark ? 'Activar mode clar' : 'Activar mode fosc'}
-        >
-          {isDark ? <Sun size={16} /> : <Moon size={16} />}
-        </button>
-
         <div className="register-form-header">
           <div className="register-form-padel-icon">
             <PadelLogo />
           </div>
-          <h1 className="register-form-title">Crea el teu compte</h1>
+          <h1 className="register-form-title">Crea tu cuenta</h1>
           <p className="register-form-subtitle">
-            Registra't per reservar pistes i unir-te a partits de pádel
+            Registrate para reservar pistas y unirte a partidos
           </p>
         </div>
 
@@ -251,7 +223,7 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
           <div className="register-form-fields">
             <div className="register-form-field">
               <label className="register-form-label" htmlFor="name">
-                Nom
+                Nombre
               </label>
               <div className="register-form-input-wrapper">
                 {renderInputIcon('name')}
@@ -278,7 +250,7 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
             <div className="register-form-field">
               <label className="register-form-label" htmlFor="lastName">
-                Cognom
+                Apellido
               </label>
               <div className="register-form-input-wrapper">
                 {renderInputIcon('lastName')}
@@ -305,7 +277,7 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
             <div className="register-form-field">
               <label className="register-form-label" htmlFor="email">
-                Correu electrònic
+                Correo electrónico
               </label>
               <div className="register-form-input-wrapper">
                 {renderInputIcon('email')}
@@ -332,7 +304,7 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
             <div className="register-form-field">
               <label className="register-form-label" htmlFor="password">
-                Contrasenya
+                Contraseña
               </label>
               <div className="register-form-input-wrapper">
                 {renderInputIcon('password')}
@@ -341,7 +313,7 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   className={inputClass('password')}
-                  placeholder="Mínim 8 caràcters"
+                  placeholder="Mínimo 8 caracteres"
                   value={form.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -377,7 +349,7 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
           >
             {!isSubmitting && (
               <>
-                Crear compte
+                Crear una cuenta
                 <ArrowRight size={18} />
               </>
             )}
@@ -387,14 +359,10 @@ function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
         <div className="register-form-divider">
           <div className="register-form-divider-content">
             <span className="register-form-divider-or">O</span>
-            <span className="register-form-login-text">Ja tens compte?</span>
-            <button
-              type="button"
-              className="register-form-link"
-              onClick={onSwitchToLogin}
-            >
-              Inicia sessió
-            </button>
+            <span className="register-form-login-text">Ya tienes una cuenta?</span>
+            <Link to="/login" className="register-form-link">
+              Inicia sesión
+            </Link>
           </div>
         </div>
       </motion.div>

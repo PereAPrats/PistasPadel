@@ -111,3 +111,255 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.2;
 }
+
+/* ====== DARK THEME (global) ====== */
+.dark-theme {
+  --white: #181b20;
+  --gray-50: #1a1d24;
+  --gray-100: #1f232b;
+  --gray-200: #2a2f3a;
+  --gray-300: #353b48;
+  --gray-400: #4a5161;
+  --gray-500: #6b7385;
+  --gray-600: #8f97a8;
+  --gray-700: #c4cad5;
+  --gray-800: #dde2ea;
+  --gray-900: #f1f5f9;
+  --green-50: #0d2818;
+  --green-100: #143d24;
+  --green-500: #4caf50;
+  --green-600: #66bb6a;
+  --green-700: #81c784;
+  --green-800: #a5d6a7;
+  --green-400: #43a047;
+
+  --text: var(--gray-700);
+  --text-h: var(--gray-900);
+  --bg: #0f1115;
+  --bg-secondary: #13161c;
+  --border: var(--gray-200);
+
+  --primary: var(--green-600);
+  --primary-hover: var(--green-500);
+  --primary-light: var(--green-50);
+  --primary-soft: var(--green-100);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.dark-theme body {
+  background: var(--bg);
+}
+
+/* Navbar scrolled dark */
+.dark-theme .navbar.scrolled {
+  background: rgba(15, 17, 21, 0.97);
+}
+
+.dark-theme .navbar.scrolled .navbar-brand-text {
+  color: var(--gray-900);
+}
+
+.dark-theme .navbar.scrolled .navbar-link {
+  color: var(--gray-600);
+}
+
+.dark-theme .navbar.scrolled .navbar-link:hover {
+  color: var(--green-600);
+  background: var(--green-50);
+}
+
+.dark-theme .navbar.scrolled .navbar-login {
+  color: var(--gray-600);
+}
+
+.dark-theme .navbar.scrolled .navbar-login:hover {
+  color: var(--green-600);
+  background: var(--green-50);
+}
+
+.dark-theme .navbar.scrolled .navbar-cta {
+  background: var(--green-600);
+}
+
+.dark-theme .navbar.scrolled .navbar-cta:hover {
+  background: var(--green-500);
+}
+
+.dark-theme .navbar.scrolled .navbar-hamburger svg {
+  stroke: var(--gray-600);
+}
+
+.dark-theme .navbar.scrolled .navbar-hamburger:hover {
+  background: var(--gray-100);
+}
+
+/* SearchBar dark */
+.dark-theme .search-bar {
+  background: var(--white);
+}
+
+.dark-theme .search-bar-field:hover {
+  background: var(--gray-50);
+}
+
+.dark-theme .search-bar-field.active {
+  background: var(--green-50);
+}
+
+.dark-theme .search-bar-divider {
+  background: var(--border);
+}
+
+/* Court cards dark */
+.dark-theme .court-card {
+  background: var(--white);
+}
+
+.dark-theme .court-card-footer {
+  border-color: var(--gray-100);
+}
+
+/* Club cards dark */
+.dark-theme .club-card {
+  background: var(--white);
+}
+
+/* Match cards dark */
+.dark-theme .match-card {
+  background: var(--white);
+  border-color: var(--gray-100);
+}
+
+.dark-theme .match-card-divider {
+  background: var(--gray-100);
+}
+
+.dark-theme .match-card-level.beginner {
+  background: rgba(46, 125, 50, 0.2);
+  color: #81c784;
+}
+
+.dark-theme .match-card-level.intermediate {
+  background: rgba(230, 81, 0, 0.2);
+  color: #ffb74d;
+}
+
+.dark-theme .match-card-level.advanced {
+  background: rgba(198, 40, 40, 0.2);
+  color: #ef9a9a;
+}
+
+/* Carousel arrows dark */
+.dark-theme .carousel-arrow {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.dark-theme .carousel-arrow:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.dark-theme .carousel-arrow:disabled:hover {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.dark-theme .carousel-fade-left {
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.dark-theme .carousel-fade-right {
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+/* Coming soon dark */
+.dark-theme .coming-soon-placeholder {
+  background: var(--white);
+  border-color: var(--gray-300);
+}
+
+.dark-theme .coming-soon-placeholder:hover {
+  border-color: var(--primary-soft);
+  background: var(--primary-light);
+}
+
+.dark-theme .coming-soon-icon {
+  background: var(--primary-light);
+}
+
+/* Club/Match section buttons dark */
+.dark-theme .club-section-btn,
+.dark-theme .match-section-btn {
+  color: var(--green-600);
+  background: var(--green-50);
+}
+
+.dark-theme .club-section-btn:hover,
+.dark-theme .match-section-btn:hover {
+  color: var(--green-700);
+  background: var(--green-100);
+}
+
+/* Footer dark — override hardcoded light bg when --gray-900 becomes light */
+.dark-theme .footer {
+  background: #0a0c0f;
+}
+
+.dark-theme .footer-logo-icon {
+  background: var(--green-600);
+}
+
+.dark-theme .footer-logo-text {
+  color: var(--gray-900);
+}
+
+.dark-theme .footer-logo-text span {
+  color: var(--green-600);
+}
+
+.dark-theme .footer-description {
+  color: var(--gray-500);
+}
+
+.dark-theme .footer-social-link {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--gray-500);
+}
+
+.dark-theme .footer-social-link:hover {
+  background: var(--green-700);
+  color: white;
+}
+
+.dark-theme .footer-column-title {
+  color: var(--gray-800);
+}
+
+.dark-theme .footer-link {
+  color: var(--gray-500);
+}
+
+.dark-theme .footer-link:hover {
+  color: var(--green-600);
+}
+
+.dark-theme .footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+.dark-theme .footer-copyright {
+  color: var(--gray-500);
+}
+
+.dark-theme .footer-bottom-link {
+  color: var(--gray-500);
+}
+
+.dark-theme .footer-bottom-link:hover {
+  color: var(--green-600);
+}
