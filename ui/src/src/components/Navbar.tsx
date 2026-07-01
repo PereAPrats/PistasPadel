@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { Sun, Moon } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 import './Navbar.css'
 
 type UserRole = 'player' | 'club' | null
@@ -40,6 +42,7 @@ export default function Navbar() {
   const userRole: UserRole = null
 
   const closeMobile = useCallback(() => setMobileOpen(false), [])
+  const { isDark, toggle: toggleTheme } = useTheme()
 
   const navLinks = userRole === 'player'
     ? playerLinks
@@ -86,12 +89,13 @@ export default function Navbar() {
           </div>
 
           <div className="navbar-right">
-            {/*
-             * Quan l'usuari estigui autenticat, aquí es mostrarà:
-             * - player: avatar + "Cerrar sesión"
-             * - club:   avatar + "Cerrar sesión"
-             * - guest:  "Iniciar sesión" + "Reservar ahora" (ja implementat)
-             */}
+            <button
+              className="navbar-theme-toggle"
+              onClick={toggleTheme}
+              aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             {!userRole && (
               <>
                 <Link to="/login" className="navbar-login">
@@ -145,6 +149,16 @@ export default function Navbar() {
       </nav>
 
       <div className={`navbar-mobile${mobileOpen ? ' open' : ''}`}>
+        <div className="navbar-mobile-theme">
+          <button
+            className="navbar-theme-toggle-mobile"
+            onClick={() => { toggleTheme(); closeMobile() }}
+            aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
+          >
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            <span>{isDark ? 'Modo claro' : 'Modo oscuro'}</span>
+          </button>
+        </div>
         {navLinks.map((link) => (
           <Link
             key={link.to}

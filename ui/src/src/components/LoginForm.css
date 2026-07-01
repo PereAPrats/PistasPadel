@@ -4,7 +4,7 @@
   --green-hover: #15803d;
   --green-light: #22c55e;
   --white: #ffffff;
-  --bg: #f8fafc;
+  --bg: #0f1a0f;
   --text: #1e293b;
   --text-secondary: #64748b;
   --text-tertiary: #94a3b8;
@@ -19,12 +19,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 24px;
+  padding: 96px 24px;
   background: var(--bg);
   background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(22, 101, 52, 0.03) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 50%, rgba(22, 101, 52, 0.025) 0%, transparent 55%);
+    linear-gradient(135deg, rgba(8, 20, 8, 0.92) 0%, rgba(8, 20, 8, 0.75) 35%, rgba(8, 20, 8, 0.5) 65%, rgba(8, 20, 8, 0.85) 100%);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  position: relative;
+}
+
+.login-form-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(34, 197, 94, 0.05) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 /* Card — floating container */
@@ -45,30 +55,6 @@
   border-radius: 24px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, transparent 100%);
   pointer-events: none;
-}
-
-/* Dark mode toggle */
-.login-form-dark-toggle {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 2;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  cursor: pointer;
-  color: var(--text-secondary);
-  transition: all 0.2s ease;
-}
-
-.login-form-dark-toggle:hover {
-  background: var(--border);
-  color: var(--text);
 }
 
 /* Header */
@@ -443,7 +429,7 @@
 }
 
 /* Dark mode */
-.login-form-wrapper--dark {
+.dark-theme .login-form-wrapper {
   --bg: #0f1115;
   --white: #181b20;
   --text: #f1f5f9;
@@ -454,68 +440,67 @@
   --shadow-card: 0 24px 48px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(46, 51, 64, 0.6);
 
   background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(22, 101, 52, 0.06) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 50%, rgba(22, 101, 52, 0.04) 0%, transparent 55%);
+    linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(8, 20, 8, 0.85) 100%);
 }
 
-.login-form-wrapper--dark .login-form-card::before {
+.dark-theme .login-form-wrapper::before {
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(34, 197, 94, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(34, 197, 94, 0.04) 0%, transparent 50%);
+}
+
+.dark-theme .login-form-card::before {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
 }
 
-.login-form-wrapper--dark .login-form-input {
+.dark-theme .login-form-input {
   background: #13161c;
 }
 
-.login-form-wrapper--dark .login-form-input:focus {
+.dark-theme .login-form-input:focus {
   border-color: var(--green-light);
   box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
 }
 
-.login-form-wrapper--dark .login-form-input--valid {
+.dark-theme .login-form-input--valid {
   border-color: var(--green-light);
 }
 
-.login-form-wrapper--dark .login-form-input--valid:focus {
+.dark-theme .login-form-input--valid:focus {
   box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
 }
 
-.login-form-wrapper--dark .login-form-input--error {
+.dark-theme .login-form-input--error {
   border-color: var(--error);
 }
 
-.login-form-wrapper--dark .login-form-input--error:focus {
+.dark-theme .login-form-input--error:focus {
   box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
 }
 
-.login-form-wrapper--dark .login-form-submit:hover {
+.dark-theme .login-form-submit:hover {
   background: var(--green-light);
 }
 
-.login-form-wrapper--dark .login-form-link {
+.dark-theme .login-form-link {
   color: var(--green-light);
 }
 
-.login-form-wrapper--dark .login-form-link:hover {
+.dark-theme .login-form-link:hover {
   color: #4ade80;
 }
 
-.login-form-wrapper--dark .login-form-padel-icon {
+.dark-theme .login-form-padel-icon {
   box-shadow: 0 6px 18px rgba(22, 101, 52, 0.3);
 }
 
-.login-form-wrapper--dark .login-form-dark-toggle {
-  background: #1f232b;
-  border-color: #2e3340;
-  color: var(--text-secondary);
-}
-
-.login-form-wrapper--dark .login-form-dark-toggle:hover {
-  background: #2e3340;
-  color: var(--text);
+.dark-theme .login-form-api-error {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.35);
 }
 
 @media (max-width: 480px) {
-  .login-form-wrapper--dark {
+  .dark-theme .login-form-wrapper {
     background: var(--white);
   }
 }
